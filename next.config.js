@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: false,
+  distDir: "out",
 };
 
 module.exports = nextConfig;
