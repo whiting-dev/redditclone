@@ -51,7 +51,7 @@ export default function PostPreview({ post }: Props): ReactElement {
       try {
         const signedURL = await Storage.get(post.image); // get key from Storage.list
         console.log("Found Image:", signedURL);
-        // @ts-ignore
+
         setPostImage(signedURL);
       } catch (error) {
         console.log("No image found.");
