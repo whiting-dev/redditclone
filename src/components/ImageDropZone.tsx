@@ -28,10 +28,7 @@ export default function ImageDropzone({ file, setFile }: Props) {
             minHeight: 128,
           }}
         >
-          <div
-            {...getRootProps({ className: "dropzone" })}
-            style={{ padding: 16 }}
-          >
+          <div {...getRootProps({ className: "dropzone" })} style={{ padding: 16 }}>
             <input {...getInputProps()} />
             <Typography variant="body1">
               Drag and drop the image you want to upload for your post.
@@ -39,21 +36,12 @@ export default function ImageDropzone({ file, setFile }: Props) {
           </div>
         </section>
       ) : (
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="center"
-          direction="column"
-          spacing={1}
-        >
+        <Grid container alignItems="center" justifyContent="center" direction="column" spacing={1}>
           <Grid item>
             <Typography variant="h6">Your Image:</Typography>
           </Grid>
           <Grid item>
-            <img
-              src={URL.createObjectURL(file)}
-              style={{ width: "auto", maxHeight: 320 }}
-            />
+            <img src={URL.createObjectURL(file)} style={{ width: "auto", maxHeight: 320 }} />
           </Grid>
         </Grid>
       )}

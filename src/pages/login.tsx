@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button, Grid, Snackbar, TextField } from "@material-ui/core";
-import Alert from "@mui/material/Alert";
+import { Button, Grid, TextField } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import { useRouter } from "next/router";
 
@@ -11,9 +10,7 @@ interface IFormInput {
 }
 
 export default function Login() {
-  const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [signInError, setSignInError] = useState<string>("");
 
   const {
     register,
@@ -27,16 +24,7 @@ export default function Login() {
       router.push(`/`);
     } catch (error) {
       console.error(error);
-      setSignInError(error.message);
-      setOpen(true);
     }
-  };
-
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
   };
 
   return (
@@ -74,11 +62,6 @@ export default function Login() {
           </Grid>
         </Grid>
       </form>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          {signInError}
-        </Alert>
-      </Snackbar>
     </>
   );
 }

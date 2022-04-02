@@ -28,9 +28,7 @@ interface Props {
 }
 
 export default function IndividualPost({ post }: Props): ReactElement {
-  const [comments, setComments] = useState<Comment[]>(
-    post.comments.items as Comment[]
-  );
+  const [comments, setComments] = useState<Comment[]>(post.comments.items as Comment[]);
 
   const {
     register,

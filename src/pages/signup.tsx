@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button, Grid, Snackbar, TextField } from "@material-ui/core";
-import Alert from "@mui/material/Alert";
+import { Button, Grid, TextField } from "@material-ui/core";
+
 import { useUser } from "../context/AuthContext";
 import { Auth } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
@@ -17,8 +17,7 @@ interface IFormInput {
 export default function Signup() {
   const { user } = useUser();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const [signUpError, setSignUpError] = useState<string>("");
+
   const [showCode, setShowCode] = useState<boolean>(false);
 
   const {
@@ -37,21 +36,10 @@ export default function Signup() {
       }
     } catch (err) {
       console.error(err);
-      setSignUpError(err.message);
-      setOpen(true);
     }
   };
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  async function signUpWithEmailAndPassword(
-    data: IFormInput
-  ): Promise<CognitoUser> {
+  async function signUpWithEmailAndPassword(data: IFormInput): Promise<CognitoUser> {
     const { username, password, email } = data;
     try {
       const { user } = await Auth.signUp({
@@ -173,11 +161,6 @@ export default function Signup() {
           </Button>
         </Grid>
       </Grid>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-          {signUpError}
-        </Alert>
-      </Snackbar>
     </form>
   );
 }
