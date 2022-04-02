@@ -1,0 +1,21 @@
+version: 1
+backend:
+  phases:
+    commands:
+      - "# Execute Amplify CLI with the helper script"
+      - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: out
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
