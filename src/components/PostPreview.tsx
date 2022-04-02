@@ -1,10 +1,4 @@
-import {
-  ButtonBase,
-  Grid,
-  IconButton,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { ButtonBase, Grid, IconButton, Paper, Typography } from "@material-ui/core";
 import React, { ReactElement, useState, useEffect } from "react";
 import {
   CreateVoteInput,
@@ -21,6 +15,7 @@ import { API, Storage } from "aws-amplify";
 import { createVote, updateVote } from "../graphql/mutations";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { useUser } from "../context/AuthContext";
+import Image from "next/image";
 
 interface Props {
   post: Post;
@@ -30,29 +25,19 @@ export default function PostPreview({ post }: Props): ReactElement {
   const router = useRouter();
   const { user } = useUser();
   const [postImage, setPostImage] = useState<string | undefined>(undefined);
-  const [existingVote, setExistingVote] = useState<string | undefined>(
-    undefined
-  );
-  const [existingVoteId, setExistingVoteId] = useState<string | undefined>(
-    undefined
-  );
+  const [existingVote, setExistingVote] = useState<string | undefined>(undefined);
+  const [existingVoteId, setExistingVoteId] = useState<string | undefined>(undefined);
   const [upvotes, setUpvotes] = useState<number>(
-    post.votes.items
-      ? post.votes.items.filter((v) => v.vote === "upvote").length
-      : 0
+    post.votes.items ? post.votes.items.filter((v) => v.vote === "upvote").length : 0
   );
 
   const [downvotes, setDownvotes] = useState<number>(
-    post.votes.items
-      ? post.votes.items.filter((v) => v.vote === "downvote").length
-      : 0
+    post.votes.items ? post.votes.items.filter((v) => v.vote === "downvote").length : 0
   );
 
   useEffect(() => {
     if (user) {
-      const tryFindVote = post.votes.items?.find(
-        (v) => v.owner === user.getUsername()
-      );
+      const tryFindVote = post.votes.items?.find((v) => v.owner === user.getUsername());
 
       if (tryFindVote) {
         setExistingVote(tryFindVote.vote);
@@ -177,8 +162,7 @@ export default function PostPreview({ post }: Props): ReactElement {
             <Grid container direction="column" alignItems="flex-start">
               <Grid item>
                 <Typography variant="body1">
-                  Posted by <b>{post.owner}</b>{" "}
-                  {formatDatePosted(post.createdAt)} hours ago
+                  Posted by <b>{post.owner}</b> {formatDatePosted(post.createdAt)} hours ago
                 </Typography>
               </Grid>
               <Grid item>
@@ -196,7 +180,7 @@ export default function PostPreview({ post }: Props): ReactElement {
               </Grid>
               {post.image && postImage && (
                 <Grid item>
-                  <img src={postImage} height={540} width={980} />
+                  <Image src={postImage} height={540} width={980} />
                 </Grid>
               )}
             </Grid>
