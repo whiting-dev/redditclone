@@ -9,13 +9,13 @@ import {
 } from "../API";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import formatDatePosted from "../lib/formatDatePosted";
 import { API, Storage } from "aws-amplify";
 import { createVote, updateVote } from "../graphql/mutations";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { useUser } from "../context/AuthContext";
-import Image from "next/image";
 
 interface Props {
   post: Post;
@@ -51,7 +51,7 @@ export default function PostPreview({ post }: Props): ReactElement {
       try {
         const signedURL = await Storage.get(post.image); // get key from Storage.list
         console.log("Found Image:", signedURL);
-
+        // @ts-ignore
         setPostImage(signedURL);
       } catch (error) {
         console.log("No image found.");
@@ -180,7 +180,7 @@ export default function PostPreview({ post }: Props): ReactElement {
               </Grid>
               {post.image && postImage && (
                 <Grid item>
-                  <Image src={postImage} height={540} width={980} />
+                  <Image src={postImage} height={540} width={980} layout="intrinsic" />
                 </Grid>
               )}
             </Grid>
