@@ -44,8 +44,6 @@ export default function Create({}: Props): ReactElement {
           authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
         })) as { data: CreatePostMutation };
 
-        console.log("New post created successfully:", createNewPost);
-
         router.push(`/post/${createNewPost.data.createPost.id}`);
       } catch (error) {
         console.log("Error uploading file: ", error);
@@ -60,8 +58,6 @@ export default function Create({}: Props): ReactElement {
         variables: { input: createNewPostWithoutImageInput },
         authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       })) as { data: CreatePostMutation };
-
-      console.log("New post created successfully:", createNewPostWithoutImage);
 
       router.push(`/post/${createNewPostWithoutImage.data.createPost.id}`);
     }
@@ -106,8 +102,7 @@ export default function Create({}: Props): ReactElement {
                 },
                 maxLength: {
                   value: 1000,
-                  message:
-                    "Please make sure your content is 1000 characters or less ",
+                  message: "Please make sure your content is 1000 characters or less ",
                 },
               })}
             />

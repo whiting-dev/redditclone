@@ -16,7 +16,6 @@ import { API, Storage } from "aws-amplify";
 import { createVote, updateVote } from "../graphql/mutations";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api";
 import { useUser } from "../context/AuthContext";
-// import styles from "./PostPreview.module.scss";
 interface Props {
   post: Post;
 }
@@ -50,7 +49,7 @@ export default function PostPreview({ post }: Props): ReactElement {
     async function getImageFromStorage() {
       try {
         const signedURL = await Storage.get(post.image); // get key from Storage.list
-        console.log("Found Image:", signedURL);
+
         // @ts-ignore
         setPostImage(signedURL);
       } catch (error) {
@@ -88,7 +87,6 @@ export default function PostPreview({ post }: Props): ReactElement {
       }
       setExistingVote(voteType);
       setExistingVoteId(updateThisVote.data.updateVote.id);
-      console.log("Updated vote:", updateThisVote);
     }
 
     if (!existingVote) {
@@ -111,20 +109,15 @@ export default function PostPreview({ post }: Props): ReactElement {
       }
       setExistingVote(voteType);
       setExistingVoteId(createNewVote.data.createVote.id);
-      console.log("Created vote:", createNewVote);
     }
   };
-
-  console.log(post);
-  console.log("Upvotes:", upvotes);
-  console.log("Downvotes:", downvotes);
 
   return (
     <Paper elevation={3}>
       <Grid
         container
         direction="row"
-        justify="flex-start"
+        justifyContent="flex-start"
         alignItems="flex-start"
         wrap="nowrap"
         spacing={3}
@@ -180,9 +173,11 @@ export default function PostPreview({ post }: Props): ReactElement {
               </Grid>
 
               {post.image && postImage && (
-                <Grid item style={{ height: 500, width: 500, position: "relative" }}>
+                <Grid item>
                   <Grid container>
-                    <Image src={postImage} layout="fill" className={"styles.image-container"} />
+                    <div style={{ position: "relative", width: 200, height: 200 }}>
+                      <Image src={postImage} layout="fill" objectFit="contain" priority />
+                    </div>
                   </Grid>
                 </Grid>
               )}

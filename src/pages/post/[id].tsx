@@ -51,8 +51,6 @@ export default function IndividualPost({ post }: Props): ReactElement {
     setComments([...comments, createNewComment.data.createComment as Comment]);
   };
 
-  console.log("Got post:", post);
-
   return (
     <Container maxWidth="md">
       <PostPreview post={post} />

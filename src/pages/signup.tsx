@@ -61,7 +61,7 @@ export default function Signup() {
     try {
       await Auth.confirmSignUp(username, code);
       const amplifyUser = await Auth.signIn(username, password);
-      console.log("Successs, singed in a user", amplifyUser);
+
       if (amplifyUser) {
         router.push(`/`);
       } else {
