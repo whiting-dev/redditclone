@@ -1,0 +1,16 @@
+{
+  "resourceName": "redditimages",
+  "policyUUID": "a02ff352",
+  "bucketName": "redditclone0268dbc7da584167bae51857834450fe",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
